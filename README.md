@@ -1,0 +1,1 @@
+# discogs-wantlist-scraper-bot
