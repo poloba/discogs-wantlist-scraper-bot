@@ -1,0 +1,70 @@
+{
+    "name": "discogs-wantlist-scraper-bot",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "start": "npm run prod",
+        "build": "npm-run-all clean transpile",
+        "server": "node ./dist-server/bin/www",
+        "dev": "NODE_ENV=development npm-run-all build server",
+        "prod": "NODE_ENV=production npm-run-all build server",
+        "transpile": "babel ./server --out-dir dist-server",
+        "clean": "rimraf dist-server",
+        "watch:dev": "nodemon",
+        "test": "jest",
+        "prettier": "prettier --write '**/*.js' '**/*.json' '**/*.md'"
+    },
+    "dependencies": {
+        "@babel/cli": "^7.8.4",
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.0",
+        "bluebird": "^3.7.2",
+        "chalk": "^4.0.0",
+        "cookie-parser": "~1.4.4",
+        "debug": "~2.6.9",
+        "express": "~4.16.1",
+        "http-errors": "~1.6.3",
+        "morgan": "~1.9.1",
+        "mysql": "^2.18.1",
+        "node-schedule": "^1.3.2",
+        "npm-run-all": "^4.1.5",
+        "request-promise": "^4.2.5",
+        "rimraf": "^3.0.2",
+        "telebot": "^1.3.0"
+    },
+    "devDependencies": {
+        "husky": "^4.2.3",
+        "jest": "^25.2.6",
+        "nodemon": "^2.0.2",
+        "prettier": "^2.0.2",
+        "pretty-quick": "^2.0.1"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "pretty-quick --staged"
+        }
+    },
+    "nodemonConfig": {
+        "exec": "npm run dev",
+        "watch": [
+            "server/*",
+            "public/*"
+        ],
+        "ignore": [
+            "**/__tests__/**",
+            "*.test.js",
+            "*.spec.js"
+        ]
+    },
+    "babel": {
+        "presets": [
+            "@babel/preset-env"
+        ]
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "testPathIgnorePatterns": [
+            "<rootDir>/dist-server/"
+        ]
+    }
+}
