@@ -1,0 +1,19 @@
+FROM nikolaik/python-nodejs:latest
+
+# Create app directory
+WORKDIR /app
+
+# Install python dependencies
+RUN pip install scrapy
+RUN pip install scrapy_proxies
+RUN pip install scrapy-fake-useragent
+
+# Install node dependencies
+COPY package*.json ./
+RUN npm install
+
+# Bundle app source
+COPY . /app
+
+EXPOSE 3333
+CMD ["npm", "run", "dev"]

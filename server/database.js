@@ -1,18 +1,20 @@
 import mysql from 'mysql';
+import {log} from './utils/log';
 
 const config = {
     host: 'localhost',
     user: 'scrapy',
     password: 'scr(scr)',
+    database: 'scrapy',
 };
 
-export const connect = mysql.createConnection(config);
+const connect = mysql.createConnection(config);
 
-connect.query('USE scrapy');
-
-connect((err) => {
+connect.connect((err) => {
     if (err) {
-        console.log('Error when connecting to db: ', err);
+        log(`Error when connecting to db: ${err}`);
     }
-    console.log('Connected as ID ' + connect.threadId);
+    log('Connected to database');
 });
+
+export default connect;

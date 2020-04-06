@@ -106,3 +106,7 @@ dist
 # Build folder
 dist-server
 build
+
+# Python
+__pycache__
+*.pyc

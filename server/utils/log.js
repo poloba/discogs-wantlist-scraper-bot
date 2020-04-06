@@ -3,53 +3,15 @@ import chalk from 'chalk';
 const colorHead = chalk.rgb(255, 216, 91);
 const colorSubHead = chalk.rgb(255, 140, 45);
 
-const initialText = (string) => log(`${colorSubHead('[Discogs]')} ${colorHead(string)}`);
-const log = (string) => console.log(initialText(string));
-
-const bgText = (text) => chalk.bgRgb(255, 140, 45).black(` ${text} `);
-const errorText = (title, output = '') => `${chalk.bold.red(title)} ${chalk.red(output)}`;
-const successText = (title, output = '') => `${chalk.bold.green(title)} ${chalk.green(output)}`;
-const error = (title, output = '') => {
-    return log(errorText(title, output));
-};
-const success = (title, output = '') => {
-    return log(successText(title, output));
-};
-export const welcomeMessage = () => {
-    return [
-        // eslint-disable-next-line no-use-before-define
-        log(
-            colorHead(
-                '\r\n__/\\\\\\\\\\\\\\\\\\\\\\\\______/\\\\\\\\\\\\\\\\\\\\\\______/\\\\\\\\\\\\\\\\\\\\\\___________/\\\\\\\\\\\\\\\\\\________/\\\\\\\\\\___________/\\\\\\\\\\\\\\\\\\\\\\___                         \r\n _\\/\\\\\\////////\\\\\\___\\/////\\\\\\///_____/\\\\\\/////////\\\\\\______/\\\\\\////////_______/\\\\\\///\\\\\\_______/\\\\\\/////////\\\\\\_                        \r\n  _\\/\\\\\\______\\//\\\\\\______\\/\\\\\\_______\\//\\\\\\______\\///_____/\\\\\\/______________/\\\\\\/__\\///\\\\\\____\\//\\\\\\______\\///__                       \r\n   _\\/\\\\\\_______\\/\\\\\\______\\/\\\\\\________\\////\\\\\\___________/\\\\\\_______________/\\\\\\______\\//\\\\\\____\\////\\\\\\_________                      \r\n    _\\/\\\\\\_______\\/\\\\\\______\\/\\\\\\___________\\////\\\\\\_______\\/\\\\\\______________\\/\\\\\\_______\\/\\\\\\_______\\////\\\\\\______                     \r\n     _\\/\\\\\\_______\\/\\\\\\______\\/\\\\\\______________\\////\\\\\\____\\//\\\\\\_____________\\//\\\\\\______/\\\\\\___________\\////\\\\\\___                    \r\n      _\\/\\\\\\_______/\\\\\\_______\\/\\\\\\_______/\\\\\\______\\//\\\\\\____\\///\\\\\\____________\\///\\\\\\__/\\\\\\______/\\\\\\______\\//\\\\\\__                   \r\n       _\\/\\\\\\\\\\\\\\\\\\\\\\\\/_____/\\\\\\\\\\\\\\\\\\\\\\__\\///\\\\\\\\\\\\\\\\\\\\\\/_______\\////\\\\\\\\\\\\\\\\\\_____\\///\\\\\\\\\\/______\\///\\\\\\\\\\\\\\\\\\\\\\/___                  \r\n        _\\////////////______\\///////////_____\\///////////____________\\/////////________\\/////__________\\///////////_____                 \r\n\r\n________/\\\\\\\\\\\\\\\\\\___/\\\\\\________/\\\\\\___/\\\\\\\\\\\\\\\\\\\\\\___/\\\\\\________/\\\\\\______/\\\\\\\\\\\\\\\\\\______/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\________/\\\\\\\\\\______        \r\n _____/\\\\\\////////___\\/\\\\\\_______\\/\\\\\\__\\/////\\\\\\///___\\/\\\\\\_______\\/\\\\\\____/\\\\\\\\\\\\\\\\\\\\\\\\\\___\\///////\\\\\\/////_______/\\\\\\///\\\\\\____       \r\n  ___/\\\\\\/____________\\/\\\\\\_______\\/\\\\\\______\\/\\\\\\______\\//\\\\\\______/\\\\\\____/\\\\\\/////////\\\\\\________\\/\\\\\\__________/\\\\\\/__\\///\\\\\\__      \r\n   __/\\\\\\______________\\/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\______\\/\\\\\\_______\\//\\\\\\____/\\\\\\____\\/\\\\\\_______\\/\\\\\\________\\/\\\\\\_________/\\\\\\______\\//\\\\\\_     \r\n    _\\/\\\\\\______________\\/\\\\\\/////////\\\\\\______\\/\\\\\\________\\//\\\\\\__/\\\\\\_____\\/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\________\\/\\\\\\________\\/\\\\\\_______\\/\\\\\\_    \r\n     _\\//\\\\\\_____________\\/\\\\\\_______\\/\\\\\\______\\/\\\\\\_________\\//\\\\\\/\\\\\\______\\/\\\\\\/////////\\\\\\________\\/\\\\\\________\\//\\\\\\______/\\\\\\__   \r\n      __\\///\\\\\\___________\\/\\\\\\_______\\/\\\\\\______\\/\\\\\\__________\\//\\\\\\\\\\_______\\/\\\\\\_______\\/\\\\\\________\\/\\\\\\_________\\///\\\\\\__/\\\\\\____  \r\n       ____\\////\\\\\\\\\\\\\\\\\\__\\/\\\\\\_______\\/\\\\\\___/\\\\\\\\\\\\\\\\\\\\\\_______\\//\\\\\\________\\/\\\\\\_______\\/\\\\\\________\\/\\\\\\___________\\///\\\\\\\\\\/_____ \r\n        _______\\/////////___\\///________\\///___\\///////////_________\\///_________\\///________\\///_________\\///______________\\/////_______\r\n'
-            )
-        ),
-        log(
-            `${bgText(' Discos Chivato ')} ${colorSubHead(
-                '🔦  A records scrapper for take all the bargains across multiples websites with telegram notifications'
-            )}`
-        ),
-        log(),
-        log(
-            ` ✅  Discogs wantlist ✅  Todocoleccion ✅  Wallapop ✅  Reciclaje Granada ❌  Milanuncios ❌  Vibbo`
-        ),
-        log(),
-        log(`${colorHead(' Version 0.2')} ${colorHead('by Pol Escolar')}`),
-        log(),
-    ];
-};
-
+export const log = (string = '') => console.log(`${colorSubHead('[Discogs]')} ${colorHead(string)}`);
 export const scraperStarted = log('Scraper started 👮🏻‍♀️  searching new entries...');
 export const scraperFinished = log('Scraper finish correctly 💃');
 export const scraperPushingItems = (idx, item) => log(`Pushing item ${idx + 1} => ${item}`);
-export const scraperDuplicateEntry = (id, artist) =>
-    log(`Duplicate entry in DB: ${log.bgText(id)} ${log.bgText(artist)}`);
 
 export const botStarted = log('Bot started 👮🏻‍♀️  searching new entries...');
-export const botSearchingItems = log('✅  Searching items...');
-export const botBlacklistingItems = log('⛔️  Blacklisting items...');
 export const botPushedNotification = (idItem, item) =>
     log(`👍🏻  Telegram pushed notification ${idItem} => ${item}`);
-export const botNoNewEntries = log('🙇🏻‍♀️  No new entries');
+export const botNoNewEntries = log('🙇🏻‍♀️ No new entries');
 
-exports.cronStarts = (time, type) =>
+export const cronStarts = (time, type) =>
     log(`[${type}] Cron will start every hour at **:${time} minutes between ${config.CRON_SCHEDULE}`);

@@ -12,7 +12,9 @@
         "clean": "rimraf dist-server",
         "watch:dev": "nodemon",
         "test": "jest",
-        "prettier": "prettier --write '**/*.js' '**/*.json' '**/*.md'"
+        "prettier": "prettier --write '**/*.js' '**/*.json' '**/*.md'",
+        "docker": "docker-compose up -d",
+        "docker re-build": "docker-compose build"
     },
     "dependencies": {
         "@babel/cli": "^7.8.4",

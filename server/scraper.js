@@ -59,7 +59,7 @@ const pushItems = (item) => {
 };
 
 const scraper = () => {
-    execPromise
+    execPromise()
         .then(() => {
             scraperFinished;
 
