@@ -110,3 +110,8 @@ build
 # Python
 __pycache__
 *.pyc
+
+# Discogs json
+discogs.json
+
+.DS_Store

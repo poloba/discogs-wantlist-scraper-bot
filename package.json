@@ -13,8 +13,9 @@
         "watch:dev": "nodemon",
         "test": "jest",
         "prettier": "prettier --write '**/*.js' '**/*.json' '**/*.md'",
-        "docker": "docker-compose up -d",
-        "docker re-build": "docker-compose build"
+        "docker-up": "docker-compose up -d",
+        "docker-down": "docker-compose down",
+        "docker-build": "docker-compose build"
     },
     "dependencies": {
         "@babel/cli": "^7.8.4",

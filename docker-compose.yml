@@ -11,10 +11,11 @@ services:
         tty: true
         ports:
             - '3333:3333'
+        volumes:
+            - .:/app
         environment:
-            SERVICE_NAME: app
-            SERVICE_TAGS: dev
-        working_dir: /app
+            - DIRECTORY=server
+            - COMMAND=npm run watch:dev
         networks:
             - app-network
     db:

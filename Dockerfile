@@ -1,5 +1,7 @@
 FROM nikolaik/python-nodejs:latest
 
+USER root
+
 # Create app directory
 WORKDIR /app
 
@@ -16,4 +18,4 @@ RUN npm install
 COPY . /app
 
 EXPOSE 3333
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "watch:dev"]

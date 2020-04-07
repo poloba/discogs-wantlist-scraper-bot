@@ -4,7 +4,7 @@ import connect from '../database';
 var router = express.Router();
 
 router.get('/entries', (req, res) => {
-    db.connect.query(
+    connect.query(
         'SELECT * FROM discogs WHERE notificationPushed = 0 AND sellerBlacklisted IS NULL',
         (error, results) => {
             if (error) throw error;
@@ -14,7 +14,7 @@ router.get('/entries', (req, res) => {
 });
 
 router.post('/ban', (req, res) => {
-    const seller = req.body.seller;
+    const {seller} = req.body;
 
     if (!seller) {
         return res.status(400).send({error: true, message: 'Please provide a seller'});
