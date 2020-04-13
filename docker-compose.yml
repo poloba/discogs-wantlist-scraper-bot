@@ -18,8 +18,10 @@ services:
             - COMMAND=npm run watch:dev
         networks:
             - app-network
+        depends_on:
+            - db
     db:
-        image: mysql:5.7.29
+        image: mariadb:10.3
         container_name: db
         restart: unless-stopped
         tty: true
@@ -28,10 +30,8 @@ services:
         environment:
             MYSQL_DATABASE: scrapy
             MYSQL_USER: scrapy
-            MYSQL_PASSWORD: scr(scr)
-            MYSQL_ROOT_PASSWORD: r(oo)t
-            SERVICE_TAGS: dev
-            SERVICE_NAME: mysql
+            MYSQL_PASSWORD: scrapy
+            MYSQL_ROOT_PASSWORD: root
         volumes:
             - ./init.sql:/docker-entrypoint-initdb.d/init.sql
         networks:

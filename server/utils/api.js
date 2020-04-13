@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3333/rest';
+const API_URL = 'http://localhost:3333/discogs';
 const headers = {
     'Content-Type': 'application/json;charset=utf-8',
     Connection: 'keep-alive',

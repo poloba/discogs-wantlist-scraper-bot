@@ -13,9 +13,13 @@
         "watch:dev": "nodemon",
         "test": "jest",
         "prettier": "prettier --write '**/*.js' '**/*.json' '**/*.md'",
-        "docker-up": "docker-compose up -d",
-        "docker-down": "docker-compose down",
-        "docker-build": "docker-compose build"
+        "docker:up": "docker-compose up -d",
+        "docker:down": "docker-compose down",
+        "docker:build": "docker-compose build",
+        "docker:bash-app": "docker-compose exec app bash",
+        "docker:bash-db": "docker-compose exec app db",
+        "docker:app": "docker logs -f app",
+        "docker:db": "docker logs -f db"
     },
     "dependencies": {
         "@babel/cli": "^7.8.4",

@@ -4,13 +4,10 @@ import connect from '../database';
 var router = express.Router();
 
 router.get('/entries', (req, res) => {
-    connect.query(
-        'SELECT * FROM discogs WHERE notificationPushed = 0 AND sellerBlacklisted IS NULL',
-        (error, results) => {
-            if (error) throw error;
-            res.json(results);
-        }
-    );
+    connect({
+        query: 'SELECT * FROM discogs WHERE notificationPushed = 0 AND sellerBlacklisted IS NULL',
+        res,
+    });
 });
 
 router.post('/ban', (req, res) => {
@@ -20,14 +17,11 @@ router.post('/ban', (req, res) => {
         return res.status(400).send({error: true, message: 'Please provide a seller'});
     }
 
-    connect.query(
-        'UPDATE seller_blacklist SET matches = matches + 1 WHERE seller = ?',
-        seller,
-        (error, results, fields) => {
-            if (error) throw error;
-            res.json(results);
-        }
-    );
+    connect({
+        query: 'UPDATE seller_blacklist SET matches = matches + 1 WHERE seller = ?',
+        params: seller,
+        res,
+    });
 });
 
 router.post('/notification', (req, res) => {
@@ -37,9 +31,10 @@ router.post('/notification', (req, res) => {
         return res.status(400).send({error: true, message: 'Please provide a idItem'});
     }
 
-    connect.query('UPDATE discogs SET notificationPushed = 1 WHERE idItem = ?', idItem, (error, results) => {
-        if (error) throw error;
-        res.json(results);
+    connect({
+        query: 'UPDATE discogs SET notificationPushed = 1 WHERE idItem = ?',
+        params: idItem,
+        res,
     });
 });
 
@@ -64,8 +59,8 @@ router.post('/insert', (req, res) => {
         return res.status(400).send({error: true, message: 'Please provide a idItem'});
     }
 
-    connect.query(
-        `INSERT INTO discogs (
+    connect({
+        query: `INSERT INTO discogs (
             idItem,
             artist,
             price,
@@ -103,9 +98,8 @@ router.post('/insert', (req, res) => {
                 discogs
             WHERE
                 idItem = ?
-        )
-    `,
-        [
+        )`,
+        params: [
             idItem,
             artist,
             price,
@@ -121,12 +115,8 @@ router.post('/insert', (req, res) => {
             sellerLink,
             idItem,
         ],
-        (error, results, fields) => {
-            if (error) throw error;
-
-            res.json(results);
-        }
-    );
+        res,
+    });
 });
 
 export default router;

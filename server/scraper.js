@@ -1,7 +1,7 @@
 import rp from 'request-promise';
 import Promise from 'bluebird';
 import {exec} from 'child_process';
-import {scraperStarted, scraperFinished, scraperPushingItems} from './utils/log';
+import {scraperStarted, scraperFinished, scraperPushingItems, scraperPushedItem} from './utils/log';
 import {post} from './utils/api';
 
 const fs = Promise.promisifyAll(require('fs'));
@@ -39,6 +39,7 @@ const pushItems = (item) => {
 
     rp(
         post({
+            path: '/insert',
             json: {
                 idItem,
                 artist,
@@ -55,7 +56,7 @@ const pushItems = (item) => {
                 sellerLink,
             },
         })
-    );
+    ).then(() => scraperPushedItem(artist));
 };
 
 const scraper = () => {
@@ -66,7 +67,7 @@ const scraper = () => {
             fs.readFileAsync('./discogs.json', {encoding: 'utf8'})
                 .then((data) => {
                     JSON.parse(data).map((item, idx) => {
-                        scraperPushingItems(name, idx, item.artist);
+                        scraperPushingItems(idx, item.artist);
                         pushItems(item);
                     });
                 })

@@ -7,10 +7,11 @@ export const log = (string = '') => console.log(`${colorSubHead('[Discogs]')} ${
 export const scraperStarted = log('Scraper started 👮🏻‍♀️  searching new entries...');
 export const scraperFinished = log('Scraper finish correctly 💃');
 export const scraperPushingItems = (idx, item) => log(`Pushing item ${idx + 1} => ${item}`);
+export const scraperPushedItem = (item) => log(`👍🏻 Pushed item => ${item}`);
 
 export const botStarted = log('Bot started 👮🏻‍♀️  searching new entries...');
 export const botPushedNotification = (idItem, item) =>
-    log(`👍🏻  Telegram pushed notification ${idItem} => ${item}`);
+    log(`👍🏻 Telegram pushed notification ${idItem} => ${item}`);
 export const botNoNewEntries = log('🙇🏻‍♀️ No new entries');
 
 export const cronStarts = (time, type) =>
