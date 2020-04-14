@@ -1,9 +1,13 @@
+'use strict';
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+import cron from 'node-cron';
 import scraper from './scraper';
+import botNewEntries from './bot/bot-new-entries';
+import botInteraction from './bot/bot-interaction';
 
 import indexRouter from './routes/index';
 import indexDiscogs from './routes/discogs';
@@ -31,6 +35,18 @@ app.use((err, req, res, next) => {
     res.json('Error');
 });
 
-scraper();
+// Up the telegram bot to listen commands from chat
+botInteraction();
+
+// Scrap and push the new entries
+const start = async () => {
+    await scraper();
+    await botNewEntries();
+};
+
+// Set a cron to scraper
+cron.schedule('45 07-23,00-01 * * *', () => {
+    start();
+});
 
 export default app;

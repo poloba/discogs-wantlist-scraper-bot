@@ -10,6 +10,13 @@ router.get('/entries', (req, res) => {
     });
 });
 
+router.get('/entries/all', (req, res) => {
+    connect({
+        query: 'SELECT * FROM discogs',
+        res,
+    });
+});
+
 router.post('/ban', (req, res) => {
     const {seller} = req.body;
 
@@ -18,8 +25,15 @@ router.post('/ban', (req, res) => {
     }
 
     connect({
-        query: 'UPDATE seller_blacklist SET matches = matches + 1 WHERE seller = ?',
+        query: 'INSERT INTO seller_blacklist (seller, entryDate) VALUES (?, now())',
         params: seller,
+        res,
+    });
+});
+
+router.get('/ban/list', (req, res) => {
+    connect({
+        query: 'SELECT seller FROM seller_blacklist',
         res,
     });
 });
