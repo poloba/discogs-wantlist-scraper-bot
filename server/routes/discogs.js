@@ -5,11 +5,13 @@ var router = express.Router();
 
 router.get('/entries', (req, res) => {
     connect({
-        query: 'SELECT * FROM discogs WHERE notificationPushed = 0 AND sellerBlacklisted IS NULL',
+        query: 'SELECT * FROM discogs WHERE telegram_message_pushed = 0',
         res,
     });
 });
+//SELECT * FROM (SELECT * FROM discogs WHERE telegram_message_pushed = 0) AS tmp WHERE NOT EXISTS (SELECT * FROM discogs d JOIN seller_blacklist b ON b.seller = d.seller)
 
+//SELECT * FROM (SELECT * FROM discogs WHERE telegram_message_pushed = 0) AS tmp WHERE NOT EXISTS (SELECT * FROM discogs d JOIN seller_blacklist b ON b.seller != d.seller WHERE d.telegram_message_pushed = 0)
 router.get('/entries/all', (req, res) => {
     connect({
         query: 'SELECT * FROM discogs',
@@ -25,7 +27,7 @@ router.post('/ban', (req, res) => {
     }
 
     connect({
-        query: 'INSERT INTO seller_blacklist (seller, entryDate) VALUES (?, now())',
+        query: 'INSERT INTO seller_blacklist (seller, entry_date) VALUES (?, now())',
         params: seller,
         res,
     });
@@ -39,95 +41,95 @@ router.get('/ban/list', (req, res) => {
 });
 
 router.post('/notification', (req, res) => {
-    const {idItem} = req.body;
+    const {id_discogs} = req.body;
 
-    if (!idItem) {
-        return res.status(400).send({error: true, message: 'Please provide a idItem'});
+    if (!id_discogs) {
+        return res.status(400).send({error: true, message: 'Please provide a id'});
     }
 
     connect({
-        query: 'UPDATE discogs SET notificationPushed = 1 WHERE idItem = ?',
-        params: idItem,
+        query: 'UPDATE discogs SET telegram_message_pushed = 1 WHERE id_discogs = ?',
+        params: id_discogs,
         res,
     });
 });
 
 router.post('/insert', (req, res) => {
     const {
-        idItem,
+        id_discogs,
         artist,
+        description,
         price,
         image,
-        description,
-        location,
-        urlRelease,
-        urlCart,
-        urlDetails,
-        conditionMedia,
-        conditionSleeve,
+        url_release,
+        url_cart,
+        url_details,
+        url_seller,
         seller,
-        sellerLink,
+        location,
+        condition_media,
+        condition_sleeve,
     } = req.body;
 
-    if (!idItem) {
-        return res.status(400).send({error: true, message: 'Please provide a idItem'});
+    if (!id_discogs) {
+        return res.status(400).send({error: true, message: 'Please provide a id'});
     }
 
     connect({
         query: `INSERT INTO discogs (
-            idItem,
+            id_discogs,
             artist,
+            description,
             price,
             image,
-            description,
-            location,
-            urlRelease,
-            urlCart,
-            urlDetails,
-            conditionMedia,
-            conditionSleeve,
+            url_release,
+            url_cart,
+            url_details,
+            url_seller,
             seller,
-            sellerLink,
-            entryDate
+            location,
+            condition_media,
+            condition_sleeve,
+            entry_date
         ) SELECT * FROM (
             SELECT
-                ? as idItem,
+                ? as id_discogs,
                 ? as artist,
+                ? as description,
                 ? as price,
                 ? as image,
-                ? as description,
-                ? as location,
-                ? as urlRelease,
-                ? as urlCart,
-                ? as urlDetails,
-                ? as conditionMedia,
-                ? as conditionSleeve,
+                ? as url_release,
+                ? as url_cart,
+                ? as url_details,
+                ? as url_seller,
                 ? as seller,
-                ? as sellerLink,
-                now() as entryDate
+                ? as location,
+                ? as condition_media,
+                ? as condition_sleeve,
+                now() as entry_date
         ) AS tmp WHERE NOT EXISTS (
             SELECT
-                idItem
+                id_discogs
             FROM
                 discogs
             WHERE
-                idItem = ?
+                id_discogs = ?
         )`,
         params: [
-            idItem,
+            id_discogs,
             artist,
+            description,
             price,
             image,
-            description,
-            location,
-            urlRelease,
-            urlCart,
-            urlDetails,
-            conditionMedia,
-            conditionSleeve,
+            url_release,
+            url_cart,
+            url_details,
+            url_seller,
             seller,
-            sellerLink,
-            idItem,
+            location,
+            condition_media,
+            condition_sleeve,
+            id_discogs,
         ],
         res,
     });

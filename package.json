@@ -17,7 +17,7 @@
         "docker:down": "docker-compose down",
         "docker:build": "docker-compose build",
         "docker:bash-app": "docker-compose exec app bash",
-        "docker:bash-db": "docker-compose exec app db",
+        "docker:bash-db": "docker-compose exec db bash",
         "docker:app": "docker logs -f app",
         "docker:db": "docker logs -f db"
     },
@@ -29,7 +29,6 @@
         "@babel/polyfill": "^7.8.7",
         "@babel/preset-env": "^7.9.0",
         "babel-plugin-syntax-async-functions": "^6.13.0",
-        "bluebird": "^3.7.2",
         "chalk": "^4.0.0",
         "cookie-parser": "~1.4.4",
         "debug": "~2.6.9",

@@ -33,9 +33,12 @@ services:
             MYSQL_PASSWORD: scrapy
             MYSQL_ROOT_PASSWORD: root
         volumes:
+            - data-volume:/var/lib/mysql
             - ./init.sql:/docker-entrypoint-initdb.d/init.sql
         networks:
             - app-network
+volumes:
+    data-volume:
 
 networks:
     app-network:

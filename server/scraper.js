@@ -1,16 +1,16 @@
 'use strict';
 import rp from 'request-promise';
-import Promise from 'bluebird';
 import {exec} from 'child_process';
+import {readFileSync} from 'fs';
+import {delay} from './utils';
 import {post} from './utils/api';
 import log from './utils/log';
 
-const fs = Promise.promisifyAll(require('fs'));
-
-const execPromise = () => {
-    log('👮🏻‍♀️ Scrapy started, searching for new entries...');
+const execScrapy = () => {
+    log('[Scraper] 👮🏻‍♀️ Scrapy started, collecting data...');
 
     const scrapy = 'rm discogs.json; scrapy crawl discogs -o discogs.json';
+    //const scrapy = 'ls -la';
     const ex = exec(scrapy, {maxBuffer: 1024 * 1200}, (error) => {
         if (error) throw error;
     });
@@ -21,63 +21,65 @@ const execPromise = () => {
     });
 };
 
-const pushItems = (item) => {
+const pushItem = async (item) => {
     const {
-        idItem,
+        id_discogs,
         artist,
+        description,
         price,
         image,
-        description,
-        location,
-        linkRelease,
-        linkCart,
-        linkDetails,
-        conditionMedia,
-        conditionSleeve,
+        url_release,
+        url_cart,
+        url_details,
+        url_seller,
         seller,
-        sellerLink,
+        location,
+        condition_media,
+        condition_sleeve,
     } = item;
 
-    return rp(
+    await rp(
         post({
             path: '/insert',
             json: {
-                idItem,
+                id_discogs,
                 artist,
+                description,
                 price,
                 image,
-                description,
-                location,
-                urlRelease: linkRelease,
-                urlCart: linkCart,
-                urlDetails: linkDetails,
-                conditionMedia,
-                conditionSleeve,
+                url_release,
+                url_cart,
+                url_details,
+                url_seller,
                 seller,
-                sellerLink,
+                location,
+                condition_media,
+                condition_sleeve,
             },
         })
-    ).then(() => log(`👍🏻 Inserted entry into db: ${artist}`));
+    );
+
+    return log(`[Scraper] 👍🏻 Inserted entry into DB: [${seller}] ${artist}`);
 };
 
-const scraper = () => {
-    return new Promise((resolve) => {
-        execPromise()
-            .then(() => {
-                log('💃 Scrapy finished correctly!');
+const pushScrapedData = async () => {
+    const data = await readFileSync('./discogs.json', {encoding: 'utf8'});
+    const parsedDataArray = await JSON.parse(data).map((item) => item);
 
-                fs.readFileAsync('./discogs.json', {encoding: 'utf8'})
-                    .then((data) => {
-                        JSON.parse(data).map((item, idx) => {
-                            log(`Inserting entry ${idx + 1}: ${item.artist}`);
-                            pushItems(item);
-                        });
-                        resolve();
-                    })
-                    .catch((err) => console.error(err.stack));
-            })
-            .catch((err) => console.error(err));
-    });
+    for (let parsedData of parsedDataArray) {
+        await pushItem(parsedData).then(delay.bind(null, 500));
+    }
+
+    return log('[Scraper] All data inserted into DB!');
+};
+
+const scraper = async () => {
+    await execScrapy();
+    log('[Scraper] 💃 Scrapy finished correctly!');
+
+    await pushScrapedData();
+
+    return log('[Scraper] Finished :)');
 };
 
 export default scraper;
