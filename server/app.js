@@ -6,8 +6,8 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cron from 'node-cron';
 import scraper from './scraper';
-import botNewEntries from './bot/bot-new-entries';
-import botInteraction from './bot/bot-interaction';
+import botWantlist from './bot/bot-wantlist';
+import botListener from './bot/bot-listener';
 
 import indexRouter from './routes/index';
 import indexDiscogs from './routes/discogs';
@@ -36,17 +36,17 @@ app.use((err, req, res, next) => {
 });
 
 // Up the telegram bot to listen commands from chat
-botInteraction();
+botListener();
 
-// Scrap and push the new entries
-const start = async () => {
+// Scrap wantlist and push telegram message with new entries
+const launch = async () => {
     await scraper();
-    await botNewEntries();
+    await botWantlist();
 };
 
-// Set a cron to scraper
+// Cron for the app
 cron.schedule('45 07-23,00-01 * * *', () => {
-    start();
+    launch();
 });
 
 export default app;

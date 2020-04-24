@@ -3,7 +3,7 @@ import rp from 'request-promise';
 import {exec} from 'child_process';
 import {readFileSync} from 'fs';
 import {delay} from './utils';
-import {post} from './utils/api';
+import {post, get} from './utils/api';
 import log from './utils/log';
 
 const execScrapy = () => {
@@ -19,6 +19,17 @@ const execScrapy = () => {
         ex.addListener('error', reject);
         ex.addListener('exit', resolve);
     });
+};
+
+const getBannedSellers = async () => {
+    const sellers = await rp(get('/ban/list'));
+    const parsedSellersArray = await JSON.parse(sellers).map((seller) => seller);
+
+    if (parsedSellersArray.length === 0) {
+        return log('[Scraper] No banned sellers available');
+    }
+
+    return parsedSellersArray;
 };
 
 const pushItem = async (item) => {
@@ -64,7 +75,10 @@ const pushItem = async (item) => {
 
 const pushScrapedData = async () => {
     const data = await readFileSync('./discogs.json', {encoding: 'utf8'});
-    const parsedDataArray = await JSON.parse(data).map((item) => item);
+    let parsedDataArray = await JSON.parse(data).map((item) => item);
+    let bannedSellerArray = await getBannedSellers().filter((banned) => banned.seller);
+
+    //console.log(bannedSellerArray);
 
     for (let parsedData of parsedDataArray) {
         await pushItem(parsedData).then(delay.bind(null, 500));

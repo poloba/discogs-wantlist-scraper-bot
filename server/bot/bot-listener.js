@@ -2,7 +2,7 @@ import bot from './index';
 import rp from 'request-promise';
 import {get, post} from '../utils/api';
 
-const botInteraction = () => {
+const botListener = () => {
     bot.on('/ban', (msg) => {
         return bot.sendMessage(msg.from.id, 'Tell me the seller that you want to block', {ask: 'ban'});
     });
@@ -36,4 +36,4 @@ const botInteraction = () => {
     });
 };
 
-export default botInteraction;
+export default botListener;
