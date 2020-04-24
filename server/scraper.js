@@ -76,7 +76,7 @@ const pushItem = async (item) => {
 const pushScrapedData = async () => {
     const data = await readFileSync('./discogs.json', {encoding: 'utf8'});
     let parsedDataArray = await JSON.parse(data).map((item) => item);
-    let bannedSellerArray = await getBannedSellers().filter((banned) => banned.seller);
+    //let bannedSellerArray = await getBannedSellers().filter((banned) => banned.seller);
 
     //console.log(bannedSellerArray);
 

@@ -45,7 +45,7 @@ const launch = async () => {
 };
 
 // Cron for the app
-cron.schedule('45 07-23,00-01 * * *', () => {
+cron.schedule('47 07-23,00-01 * * *', () => {
     launch();
 });
 
