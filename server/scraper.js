@@ -7,7 +7,7 @@ import {post, get} from './utils/api';
 import log from './utils/log';
 
 const execScrapy = () => {
-    log('[Scraper] 👮🏻‍♀️ Scrapy started, collecting data...');
+    log('[Scraper] 👮🏻‍♀️ Scrapy started');
 
     const scrapy = 'rm discogs.json; scrapy crawl discogs -o discogs.json';
     //const scrapy = 'ls -la';
@@ -23,10 +23,10 @@ const execScrapy = () => {
 
 const getBannedSellers = async () => {
     const sellers = await rp(get('/ban/list'));
-    const parsedSellersArray = await JSON.parse(sellers).map((seller) => seller);
+    const parsedSellersArray = await JSON.parse(sellers).map((s) => s.seller);
 
     if (parsedSellersArray.length === 0) {
-        return log('[Scraper] No banned sellers available');
+        return [];
     }
 
     return parsedSellersArray;
@@ -76,9 +76,9 @@ const pushItem = async (item) => {
 const pushScrapedData = async () => {
     const data = await readFileSync('./discogs.json', {encoding: 'utf8'});
     let parsedDataArray = await JSON.parse(data).map((item) => item);
-    //let bannedSellerArray = await getBannedSellers().filter((banned) => banned.seller);
 
-    //console.log(bannedSellerArray);
+    const bannedSellers = await getBannedSellers();
+    parsedDataArray = await parsedDataArray.filter((val) => !bannedSellers.includes(val.seller));
 
     for (let parsedData of parsedDataArray) {
         await pushItem(parsedData).then(delay.bind(null, 500));

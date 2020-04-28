@@ -3,6 +3,8 @@ import rp from 'request-promise';
 import {get, post} from '../utils/api';
 
 const botListener = () => {
+    bot.start();
+
     bot.on('/ban', (msg) => {
         return bot.sendMessage(msg.from.id, 'Tell me the seller that you want to block', {ask: 'ban'});
     });
@@ -22,7 +24,7 @@ const botListener = () => {
             .catch((err) => console.log(err));
     });
 
-    bot.on('/ban_list', (msg) => {
+    bot.on('/banlist', (msg) => {
         const id = msg.from.id;
 
         rp(get('/ban/list'))

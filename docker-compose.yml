@@ -9,6 +9,7 @@ services:
         container_name: app
         restart: unless-stopped
         tty: true
+        stdin_open: true
         ports:
             - '3333:3333'
         volumes:

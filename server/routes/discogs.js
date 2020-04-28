@@ -9,9 +9,7 @@ router.get('/entries', (req, res) => {
         res,
     });
 });
-//SELECT * FROM (SELECT * FROM discogs WHERE telegram_message_pushed = 0) AS tmp WHERE NOT EXISTS (SELECT * FROM discogs d JOIN seller_blacklist b ON b.seller = d.seller)
 
-//SELECT * FROM (SELECT * FROM discogs WHERE telegram_message_pushed = 0) AS tmp WHERE NOT EXISTS (SELECT * FROM discogs d JOIN seller_blacklist b ON b.seller != d.seller WHERE d.telegram_message_pushed = 0)
 router.get('/entries/all', (req, res) => {
     connect({
         query: 'SELECT * FROM discogs',

@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cron from 'node-cron';
 import scraper from './scraper';
+import configApp from './config';
 import botWantlist from './bot/bot-wantlist';
 import botListener from './bot/bot-listener';
 
@@ -35,8 +36,12 @@ app.use((err, req, res, next) => {
     res.json('Error');
 });
 
-// Up the telegram bot to listen commands from chat
-botListener();
+// Set the config.json and Up the telegram bot to listen commands from chat
+const initApp = async () => {
+    await configApp();
+    await botListener();
+};
+initApp();
 
 // Scrap wantlist and push telegram message with new entries
 const launch = async () => {
