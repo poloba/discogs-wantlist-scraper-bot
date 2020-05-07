@@ -6,7 +6,8 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cron from 'node-cron';
 import scraper from './scraper';
-import configApp from './config';
+import configApp, {config} from './config';
+import {cronSchedule} from './config/constants';
 import botWantlist from './bot/bot-wantlist';
 import botListener from './bot/bot-listener';
 
@@ -36,7 +37,7 @@ app.use((err, req, res, next) => {
     res.json('Error');
 });
 
-// Set the config.json and Up the telegram bot to listen commands from chat
+// Set the your user config and up the telegram bot to listen commands from chat
 const initApp = async () => {
     await configApp();
     await botListener();
@@ -50,7 +51,7 @@ const launch = async () => {
 };
 
 // Cron for the app
-cron.schedule('47 07-23,00-01 * * *', () => {
+cron.schedule(config.get(cronSchedule), () => {
     launch();
 });
 

@@ -1,4 +1,6 @@
 import inquirer from 'inquirer';
+import {config} from './index';
+import {cronSchedule} from './constants';
 
 export const askDiscogsCredentials = () => {
     const questions = [
@@ -65,6 +67,7 @@ export const askCronSchedule = () => {
         name: 'schedule',
         type: 'input',
         message: 'Enter your cron schedule (* * * * *):',
+        default: config.get(cronSchedule),
         validate: (value) => {
             if (value.length) {
                 return true;
