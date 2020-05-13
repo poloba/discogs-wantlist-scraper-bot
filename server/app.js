@@ -7,9 +7,8 @@ import logger from 'morgan';
 import cron from 'node-cron';
 import scraper from './scraper';
 import configApp, {config} from './config';
-import {cronSchedule} from './config/constants';
-import botWantlist from './bot/bot-wantlist';
-import botListener from './bot/bot-listener';
+import {cronSchedule, discogsUsername, telegramToken, cronEnabled} from './config/constants';
+import log from './utils/log';
 
 import indexRouter from './routes/index';
 import indexDiscogs from './routes/discogs';
@@ -38,21 +37,36 @@ app.use((err, req, res, next) => {
 });
 
 // Set the your user config and up the telegram bot to listen commands from chat
-const initApp = async () => {
+const init = async () => {
     await configApp();
-    await botListener();
+
+    const bot = await import('./bot/bot-listener');
+    return bot.default();
 };
-initApp();
 
 // Scrap wantlist and push telegram message with new entries
 const launch = async () => {
+    if (!config.get(discogsUsername) && !config.get(telegramToken)) {
+        await init();
+    }
     await scraper();
-    await botWantlist();
+
+    const bot = await import('./bot/bot-wantlist');
+    return bot.default();
 };
 
-// Cron for the app
-cron.schedule(config.get(cronSchedule), () => {
-    launch();
-});
+const start = async () => {
+    await init();
+
+    if (config.get(cronEnabled)) {
+        log(`[Cron] Enabled at (${config.get(cronSchedule)})`);
+        return cron.schedule(config.get(cronSchedule), () => launch());
+    }
+
+    log(`[Cron] Disabled, launching the app...`);
+    return launch();
+};
+
+start();
 
 export default app;

@@ -1,9 +1,22 @@
 import Configstore from 'configstore';
 import figlet from 'figlet';
 import {readFileSync, writeFileSync} from 'fs';
-import {askDiscogsCredentials, askTelegramCredentials, askCronSchedule} from './inquirer';
+import {
+    askDiscogsCredentials,
+    askTelegramCredentials,
+    askLaunchType,
+    askCronSchedule,
+    askResetConfig,
+} from './inquirer';
 import log from '../utils/log';
-import {discogsUsername, discogsPassword, telegramToken, telegramId, cronSchedule} from './constants';
+import {
+    discogsUsername,
+    discogsPassword,
+    telegramToken,
+    telegramId,
+    cronSchedule,
+    cronEnabled,
+} from './constants';
 
 const configJson = readFileSync('./config.json', {encoding: 'utf8'});
 export const config = new Configstore(configJson.name);
@@ -39,7 +52,7 @@ export const getTelegramCredentials = async () => {
 };
 
 export const getCronSchedule = async () => {
-    let schedule = config.get('cron.schedule');
+    let schedule = config.get(cronSchedule);
 
     if (schedule) {
         return schedule;
@@ -49,6 +62,29 @@ export const getCronSchedule = async () => {
     schedule = config.set(cronSchedule, cron.schedule);
 
     return schedule;
+};
+
+export const getLaunchType = async () => {
+    let type = config.get(cronEnabled);
+
+    const launchType = await askLaunchType();
+    type = config.set(cronEnabled, launchType.enabled);
+
+    return type;
+};
+
+export const resetConfig = async () => {
+    if (config.get(telegramToken) && config.get(discogsUsername)) {
+        const ask = await askResetConfig();
+
+        if (ask.reset === true) {
+            return config.clear();
+        }
+
+        return null;
+    }
+
+    return null;
 };
 
 const welcomeMessage = () => {
@@ -66,10 +102,12 @@ const welcomeMessage = () => {
 
 const configApp = async () => {
     welcomeMessage();
+    await resetConfig();
     await getDiscogsCredentials();
     await getTelegramCredentials();
     await getCronSchedule();
-    await writeFileSync('./config.json', JSON.stringify(config.all));
+    await getLaunchType();
+    await writeFileSync('./config.json', JSON.stringify(config.all, null, 4));
 };
 
 export default configApp;

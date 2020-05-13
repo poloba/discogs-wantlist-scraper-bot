@@ -67,7 +67,7 @@ export const askCronSchedule = () => {
         name: 'schedule',
         type: 'input',
         message: 'Enter your cron schedule (* * * * *):',
-        default: config.get(cronSchedule),
+        default: '47 07-23,00-01 * * *',
         validate: (value) => {
             if (value.length) {
                 return true;
@@ -75,5 +75,34 @@ export const askCronSchedule = () => {
                 return 'Please enter your cron schedule (* * * * *).';
             }
         },
+    });
+};
+
+export const askLaunchType = () => {
+    return inquirer.prompt({
+        name: 'enabled',
+        type: 'list',
+        message: 'Do you want to skip the cronjob to start now the app?',
+        choices: [
+            {name: 'Yes', value: false},
+            {name: 'No', value: true},
+        ],
+        default: ['No'],
+    });
+};
+
+export const askResetConfig = () => {
+    return inquirer.prompt({
+        name: 'reset',
+        type: 'list',
+        message: `${JSON.stringify(
+            config.all,
+            null,
+            4
+        )}\n You have an existing config, did you want to reset and set a new config?`,
+        choices: [
+            {name: 'Yes', value: true},
+            {name: 'No', value: false},
+        ],
     });
 };

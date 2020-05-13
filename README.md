@@ -44,6 +44,10 @@ You will asked to enter the config parameters:
 -   Cron schedule. By default is `47 07-23,00-01 * * *` Is active between 7:47 am to 01:47 am every hour. Set
     as you want, you can use [Crontab Guru](https://crontab.guru/) to make the schedule.
 
+## Important notes
+
+-   At this moment the app is only working at dev enviroment.
+
 ## Pending task
 
 -   Add test. The enviroment is ready to use jest test.
