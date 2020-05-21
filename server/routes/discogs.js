@@ -1,7 +1,7 @@
 import express from 'express';
 import connect from '../database';
 
-var router = express.Router();
+const router = express.Router();
 
 router.get('/entries', (req, res) => {
     connect({
@@ -24,7 +24,7 @@ router.post('/ban', (req, res) => {
         return res.status(400).send({error: true, message: 'Please provide a seller'});
     }
 
-    connect({
+    return connect({
         query: 'INSERT INTO seller_blacklist (seller, entry_date) VALUES (?, now())',
         params: seller,
         res,
@@ -45,7 +45,7 @@ router.post('/notification', (req, res) => {
         return res.status(400).send({error: true, message: 'Please provide a id'});
     }
 
-    connect({
+    return connect({
         query: 'UPDATE discogs SET telegram_message_pushed = 1 WHERE id_discogs = ?',
         params: id_discogs,
         res,
@@ -73,7 +73,7 @@ router.post('/insert', (req, res) => {
         return res.status(400).send({error: true, message: 'Please provide a id'});
     }
 
-    connect({
+    return connect({
         query: `INSERT INTO discogs (
             id_discogs,
             artist,

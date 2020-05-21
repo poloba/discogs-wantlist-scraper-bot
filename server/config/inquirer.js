@@ -1,6 +1,5 @@
 import inquirer from 'inquirer';
 import {config} from './index';
-import {cronSchedule} from './constants';
 
 export const askDiscogsCredentials = () => {
     const questions = [
@@ -11,9 +10,8 @@ export const askDiscogsCredentials = () => {
             validate: (value) => {
                 if (value.length) {
                     return true;
-                } else {
-                    return 'Please enter your username.';
                 }
+                return 'Please enter your username.';
             },
         },
         {
@@ -23,9 +21,8 @@ export const askDiscogsCredentials = () => {
             validate: (value) => {
                 if (value.length) {
                     return true;
-                } else {
-                    return 'Please enter your Discogs password.';
                 }
+                return 'Please enter your Discogs password.';
             },
         },
     ];
@@ -41,9 +38,8 @@ export const askTelegramCredentials = () => {
             validate: (value) => {
                 if (value.length) {
                     return true;
-                } else {
-                    return 'Please enter your bot Telegram token.';
                 }
+                return 'Please enter your bot Telegram token.';
             },
         },
         {
@@ -53,9 +49,8 @@ export const askTelegramCredentials = () => {
             validate: (value) => {
                 if (value.length) {
                     return true;
-                } else {
-                    return 'Please enter your Telegram channel or group ID.';
                 }
+                return 'Please enter your Telegram channel or group ID.';
             },
         },
     ];
@@ -71,9 +66,8 @@ export const askCronSchedule = () => {
         validate: (value) => {
             if (value.length) {
                 return true;
-            } else {
-                return 'Please enter your cron schedule (* * * * *).';
             }
+            return 'Please enter your cron schedule (* * * * *).';
         },
     });
 };
@@ -84,10 +78,9 @@ export const askLaunchType = () => {
         type: 'list',
         message: 'Do you want to skip the cronjob to start now the app?',
         choices: [
-            {name: 'Yes', value: false},
             {name: 'No', value: true},
+            {name: 'Yes', value: false},
         ],
-        default: ['No'],
     });
 };
 
@@ -101,8 +94,8 @@ export const askResetConfig = () => {
             4
         )}\n You have an existing config, did you want to reset and set a new config?`,
         choices: [
-            {name: 'Yes', value: true},
             {name: 'No', value: false},
+            {name: 'Yes', value: true},
         ],
     });
 };

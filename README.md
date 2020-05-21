@@ -26,28 +26,61 @@ hour (by default) and you can block sellers, no more sellers with abusive price 
 
 ## Requisites
 
+Follow this instructions to install it:
+
 -   Install [Docker](https://docs.docker.com/)
 -   Install [Node](https://nodejs.org/en/download/)
--   [Telegram token](https://core.telegram.org/bots/api#authorizing-your-bot) for your bot, something like
-    this: `123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`
--   Telegram chat id, where you recieve the messages with the scrapped data. If you want more info about the
-    bot integration check [Telebot](https://github.com/mullwar/telebot) documentation.
+-   Get your [Telegram token](https://core.telegram.org/bots/api#authorizing-your-bot) for your bot, something
+    like this: `123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`
+    -   Ask to [Botfather](https://core.telegram.org/bots#6-botfather) to obtain it.
+-   Get your Telegram chat id, where you recieve the messages with the scrapped data. If you want more info
+    about the bot integration check [Telebot](https://github.com/mullwar/telebot) documentation.
 
 ## Installation
 
 `npm run docker:start`
 
-You will asked to enter the config parameters:
+You will asked to enter these config parameters:
 
 -   Discogs username and password.
 -   Telegram token and chat id.
--   Cron schedule. By default is `47 07-23,00-01 * * *` Is active between 7:47 am to 01:47 am every hour. Set
-    as you want, you can use [Crontab Guru](https://crontab.guru/) to make the schedule.
+-   Cron schedule. By default is set to `47 07-23,00-01 * * *`
+    -   Is active between 7:47 am to 01:47 am every hour.
+    -   You can use [Crontab Guru](https://crontab.guru/) to make the schedule.
+
+## Uses
+
+Inside Telegram you can send commands to the app, to block some sellers that abuse (some sellers are deleting
+items and uploading again every day) or have high prices.
+
+`/ban`
+
+-   You will ask to insert the seller nickname.
+
+`/banlist`
+
+-   Recieve the entire list of banned sellers.
 
 ## Important notes
 
 -   At this moment the app is only working at dev enviroment.
+-   **Use as your own risk, if you set your cron every 5-10 minutes, discogs maybe block your account. I
+    recommend to set the cron to 1 hour minimum.**
 
 ## Pending task
 
 -   Add test. The enviroment is ready to use jest test.
+-   Persist config data when the container is down.
+
+## About
+
+This app runs with two docker container:
+
+-   [nikolaik/python-nodejs](https://hub.docker.com/r/nikolaik/python-nodejs/) Node backend over Express with
+    python for Scrapy.
+-   [mariadb](https://hub.docker.com/_/mariadb) for the database.
+
+The app is build over [Express](https://github.com/expressjs/express) framework that provides the API.
+
+This a side project, feel free to send pull request to fix or improve the app! I work as I senior UI
+developer, this backend project is a challenge for me. **Done with love by Pol Escolar**

@@ -1,15 +1,24 @@
 module.exports = {
-    env: {
-        es6: true,
-        node: true,
+    ecmaFeatures: {
+        modules: true,
+        spread: true,
+        restParams: true,
     },
-    extends: 'eslint:recommended',
+    env: {
+        browser: true,
+        node: true,
+        es6: true,
+    },
+    parser: 'babel-eslint',
+    parserOptions: {
+        sourceType: 'module',
+    },
     rules: {
         'accessor-pairs': 'error',
         'array-bracket-newline': 'error',
         'array-bracket-spacing': ['error', 'never'],
         'array-callback-return': 'error',
-        'array-element-newline': 'error',
+        //'array-element-newline': 'error',
         'arrow-body-style': 'off',
         'arrow-parens': 'off',
         'arrow-spacing': [
@@ -29,7 +38,7 @@ module.exports = {
             },
         ],
         'callback-return': 'error',
-        camelcase: 'error',
+        //camelcase: 'error',
         'capitalized-comments': 'off',
         'class-methods-use-this': 'error',
         'comma-dangle': 'off',
@@ -100,7 +109,7 @@ module.exports = {
         'max-statements-per-line': 'error',
         'multiline-comment-style': 'off',
         //"multiline-ternary": "error",
-        'new-cap': 'error',
+        //'new-cap': 'error',
         'new-parens': 'error',
         'newline-after-var': 'off',
         'newline-before-return': 'off',
@@ -242,7 +251,7 @@ module.exports = {
             },
         ],
         'semi-style': ['error', 'last'],
-        'sort-imports': 'error',
+        //'sort-imports': 'error',
         'sort-keys': 'off',
         'sort-vars': 'error',
         'space-before-blocks': 'error',

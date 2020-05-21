@@ -16,7 +16,7 @@ import {
     telegramId,
     cronSchedule,
     cronEnabled,
-} from './constants';
+} from '../constants/config';
 
 const configJson = readFileSync('./config.json', {encoding: 'utf8'});
 export const config = new Configstore(configJson.name);

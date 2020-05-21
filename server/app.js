@@ -1,20 +1,21 @@
-'use strict';
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cron from 'node-cron';
+import bodyParser from 'body-parser';
 import scraper from './scraper';
 import configApp, {config} from './config';
-import {cronSchedule, discogsUsername, telegramToken, cronEnabled} from './config/constants';
+import {cronSchedule, discogsUsername, telegramToken, cronEnabled} from './constants/config';
 import log from './utils/log';
 
 import indexRouter from './routes/index';
 import indexDiscogs from './routes/discogs';
 
-var app = express();
+const app = express();
 
+app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
@@ -55,6 +56,7 @@ const launch = async () => {
     return bot.default();
 };
 
+// Start the app, set an optional cron
 const start = async () => {
     await init();
 
