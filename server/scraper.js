@@ -1,8 +1,6 @@
-import rp from 'request-promise';
 import {exec} from 'child_process';
 import {readFileSync} from 'fs';
 import {delay} from './utils';
-import {get} from './utils/api';
 import log from './utils/log';
 import {createNewRecordFromServer} from './models/new-record';
 
@@ -21,7 +19,7 @@ const execScrapy = () => {
 };
 
 const getBannedSellers = async () => {
-    const sellers = await rp(get('/ban/list'));
+    const sellers = await fetch('http://localhost:3333/discogs/ban/list');
     const parsedSellersArray = await JSON.parse(sellers).map((s) => s.seller);
 
     if (parsedSellersArray.length === 0) {
@@ -38,7 +36,7 @@ const pushScrapedData = async () => {
     const bannedSellers = await getBannedSellers();
     parsedDataArray = await parsedDataArray.filter((val) => !bannedSellers.includes(val.seller));
 
-    for (let parsedData of parsedDataArray) {
+    for (const parsedData of parsedDataArray) {
         await createNewRecordFromServer(parsedData).then(delay.bind(null, 500));
     }
 

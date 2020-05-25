@@ -6,7 +6,7 @@ export const askDiscogsCredentials = () => {
         {
             name: 'username',
             type: 'input',
-            message: 'Enter your Discogs username:',
+            message: 'Discogs username:',
             validate: (value) => {
                 if (value.length) {
                     return true;
@@ -17,7 +17,7 @@ export const askDiscogsCredentials = () => {
         {
             name: 'password',
             type: 'password',
-            message: 'Enter your Discogs password:',
+            message: 'Discogs password:',
             validate: (value) => {
                 if (value.length) {
                     return true;
@@ -34,7 +34,7 @@ export const askTelegramCredentials = () => {
         {
             name: 'token',
             type: 'input',
-            message: 'Enter your bot Telegram token:',
+            message: 'Bot Telegram token:',
             validate: (value) => {
                 if (value.length) {
                     return true;
@@ -45,7 +45,7 @@ export const askTelegramCredentials = () => {
         {
             name: 'id',
             type: 'input',
-            message: 'Enter your Telegram channel or group ID where you will receive the pushes:',
+            message: 'Telegram channel ID or group ID where you will receive the messages:',
             validate: (value) => {
                 if (value.length) {
                     return true;

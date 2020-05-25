@@ -1,6 +1,7 @@
 import bot from './index';
-import rp from 'request-promise';
-import {get, post} from '../utils/api';
+import fetch from 'node-fetch';
+
+import {createBlockedSellerFromServer} from '../models/block-seller';
 
 const botListener = () => {
     bot.on('/ban', (msg) => {
@@ -17,15 +18,17 @@ const botListener = () => {
             });
         }
 
-        rp(post({path: '/ban', json: {seller}}))
-            .then(() => bot.sendMessage(id, `Awesome, <b>${seller}</b> seller blocked!`, {parseMode: 'HTML'}))
-            .catch((err) => console.log(err));
+        (async () => {
+            await createBlockedSellerFromServer(seller);
+        })();
+
+        return bot.sendMessage(id, `Awesome, <b>${seller}</b> seller blocked!`, {parseMode: 'HTML'});
     });
 
     bot.on('/banlist', (msg) => {
         const id = msg.from.id;
 
-        rp(get('/ban/list'))
+        fetch('http://localhost:3333/discogs/ban/list')
             .then((body) => {
                 const sellers = JSON.parse(body);
                 return bot.sendMessage(id, `<b>Sellers blocked:</b>\n ${sellers.map((s) => s.seller)}`, {
@@ -33,6 +36,12 @@ const botListener = () => {
                 });
             })
             .catch((err) => console.log(err));
+    });
+
+    bot.on('/id', (msg) => {
+        const id = msg.from.id;
+
+        return bot.sendMessage(id, `Your telegram ID is: ${id}`);
     });
 
     bot.start();
