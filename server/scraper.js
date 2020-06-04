@@ -1,5 +1,6 @@
 import {exec} from 'child_process';
 import {readFileSync} from 'fs';
+import fetch from 'node-fetch';
 import {delay} from './utils';
 import log from './utils/log';
 import {createNewRecordFromServer} from './models/new-record';

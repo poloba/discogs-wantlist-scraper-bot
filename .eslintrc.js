@@ -13,6 +13,8 @@ module.exports = {
     parserOptions: {
         sourceType: 'module',
     },
+    plugins: ['import', 'prettier'],
+    extends: ['eslint:recommended', 'plugin:import/errors', 'plugin:import/warnings', 'prettier'],
     rules: {
         'accessor-pairs': 'error',
         'array-bracket-newline': 'error',
