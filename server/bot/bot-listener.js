@@ -28,14 +28,13 @@ const botListener = () => {
     bot.on('/banlist', (msg) => {
         const id = msg.from.id;
 
-        fetch('http://localhost:3333/discogs/ban/list')
-            .then((body) => {
-                const sellers = JSON.parse(body);
-                return bot.sendMessage(id, `<b>Sellers blocked:</b>\n ${sellers.map((s) => s.seller)}`, {
-                    parseMode: 'HTML',
-                });
-            })
-            .catch((err) => console.log(err));
+        (async () => {
+            const data = await fetch('http://localhost:3333/discogs/ban/list');
+            const dataJson = await data.json();
+            return bot.sendMessage(id, `<b>Sellers blocked:</b>\n ${dataJson.map((s) => s.seller)}`, {
+                parseMode: 'HTML',
+            });
+        })();
     });
 
     bot.on('/id', (msg) => {

@@ -5,16 +5,21 @@ module.exports = {
         restParams: true,
     },
     env: {
-        browser: true,
         node: true,
-        es6: true,
+        modules: true,
     },
     parser: 'babel-eslint',
     parserOptions: {
+        ecmaVersion: 6,
         sourceType: 'module',
     },
     plugins: ['import', 'prettier'],
-    extends: ['eslint:recommended', 'plugin:import/errors', 'plugin:import/warnings', 'prettier'],
+    extends: [
+        'eslint:recommended',
+        'plugin:import/errors',
+        'plugin:import/warnings',
+        'plugin:prettier/recommended',
+    ],
     rules: {
         'accessor-pairs': 'error',
         'array-bracket-newline': 'error',

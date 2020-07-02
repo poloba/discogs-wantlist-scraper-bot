@@ -20,8 +20,9 @@ const execScrapy = () => {
 };
 
 const getBannedSellers = async () => {
-    const sellers = await fetch('http://localhost:3333/discogs/ban/list');
-    const parsedSellersArray = await JSON.parse(sellers).map((s) => s.seller);
+    let sellers = await fetch('http://localhost:3333/discogs/ban/list');
+    let sellersJson = await sellers.json();
+    let parsedSellersArray = await sellersJson.map((s) => s.seller);
 
     if (parsedSellersArray.length === 0) {
         return [];
