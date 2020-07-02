@@ -48,7 +48,43 @@ You will asked to enter these config parameters:
     -   Is active between 7:47 am to 01:47 am every hour.
     -   You can use [Crontab Guru](https://crontab.guru/) to make the schedule.
 
-## Uses
+## App uses
+
+This is a quick reference to know the app uses.
+
+### Docker
+
+`npm run docker:up`
+
+Start app and db docker containers and attach to the app terminal container.
+
+`npm run docker:down`
+
+Down app and db docker containers.
+
+`npm run docker:build`
+
+Build app and db docker containers.
+
+`npm run docker:app`
+
+Get shell inside the app container.
+
+`npm run docker:db`
+
+Get shell inside the db container.
+
+### Dev utils
+
+`npm run prettier`
+
+Pretify the code.
+
+`npm run test`
+
+Run Jest test util.
+
+## Bot uses
 
 Inside Telegram you can send commands to the app, to block some sellers that abuse (some sellers are deleting
 items and uploading again every day) or have high prices.
