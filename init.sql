@@ -4,7 +4,7 @@ CREATE TABLE `discogs` (
     `id` int(10) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     `id_discogs` int(20) DEFAULT NULL,
     `artist` varchar(255) NOT NULL,
-    `description` varchar(255) NOT NULL DEFAULT '',
+    `description` varchar(1000) NOT NULL DEFAULT '',
     `price` varchar(255) NOT NULL,
     `image` varchar(255) NOT NULL,
     `url_cart` varchar(255) NOT NULL,

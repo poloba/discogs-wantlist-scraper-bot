@@ -11,12 +11,6 @@
  \/\_____\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\    \ \_____\  \ \_\ \_\
   \/_____/   \/_____/   \/_/ /_/   \/_/\/_/   \/_/     \/_____/   \/_/ /_/
 
- __     __     ______     __   __     ______   __         __     ______     ______
-/\ \  _ \ \   /\  __ \   /\ "-.\ \   /\__  _\ /\ \       /\ \   /\  ___\   /\__  _\
-\ \ \/ ".\ \  \ \  __ \  \ \ \-.  \  \/_/\ \/ \ \ \____  \ \ \  \ \___  \  \/_/\ \/
- \ \__/".~\_\  \ \_\ \_\  \ \_\\"\_\    \ \_\  \ \_____\  \ \_\  \/\_____\    \ \_\
-  \/_/   \/_/   \/_/\/_/   \/_/ \/_/     \/_/   \/_____/   \/_/   \/_____/     \/_/
-  
 </pre>
 
 Recieve your discogs wantlist in your telegram app and enhanced it! You will recieve the new entries every
@@ -33,8 +27,10 @@ Follow this instructions to install it:
 -   Get your [Telegram token](https://core.telegram.org/bots/api#authorizing-your-bot) for your bot, something
     like this: `123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`
     -   Ask to [Botfather](https://core.telegram.org/bots#6-botfather) to obtain it.
--   Get your Telegram chat id, where you recieve the messages with the scrapped data. If you want more info
-    about the bot integration check [Telebot](https://github.com/mullwar/telebot) documentation.
+-   Get your [Telegram chat id](https://stackoverflow.com/questions/45414021/get-telegram-channel-group-id),
+    where you recieve the messages with the scrapped data.
+    -   If you want more info about the bot integration check [Telebot](https://github.com/mullwar/telebot)
+        documentation.
 
 ## Installation
 
@@ -47,6 +43,7 @@ You will asked to enter these config parameters:
 -   Cron schedule. By default is set to `47 07-23,00-01 * * *`
     -   Is active between 7:47 am to 01:47 am every hour.
     -   You can use [Crontab Guru](https://crontab.guru/) to make the schedule.
+-   This will create `config.json` file that will be used by scrapy to scrap your wantlist discogs account.
 
 ## App uses
 
@@ -61,6 +58,10 @@ Start app and db docker containers and attach to the app terminal container.
 `npm run docker:down`
 
 Down app and db docker containers.
+
+`npm run docker:start`
+
+Launch and attach to the app terminal container if it is already up.
 
 `npm run docker:build`
 
@@ -102,6 +103,7 @@ items and uploading again every day) or have high prices.
 -   At this moment the app is only working at dev enviroment.
 -   **Use as your own risk, if you set your cron every 5-10 minutes, discogs maybe block your account. I
     recommend to set the cron to 1 hour minimum.**
+-   Feel free to create an issue / pull request if you find some bug or improvement.
 
 ## Pending task
 

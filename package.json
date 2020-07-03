@@ -13,9 +13,10 @@
         "watch:dev": "nodemon -I",
         "test": "jest",
         "prettier": "prettier --write '**/*.js' '**/*.json' '**/*.md'",
-        "docker:start": "npm install && docker-compose build && docker-compose up -d && docker attach app",
+        "docker:install": "npm install && docker-compose build && docker-compose up -d && docker attach app",
         "docker:up": "docker-compose up -d && docker attach app",
         "docker:down": "docker-compose down",
+        "docker:start": "docker attach app",
         "docker:build": "docker-compose build",
         "docker:app": "docker-compose exec app bash",
         "docker:db": "docker-compose exec db bash"
