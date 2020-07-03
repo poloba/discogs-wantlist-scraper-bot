@@ -1,17 +1,4 @@
-<pre>
- _____     __     ______     ______     ______     ______     ______
-/\  __-.  /\ \   /\  ___\   /\  ___\   /\  __ \   /\  ___\   /\  ___\
-\ \ \/\ \ \ \ \  \ \___  \  \ \ \____  \ \ \/\ \  \ \ \__ \  \ \___  \
- \ \____-  \ \_\  \/\_____\  \ \_____\  \ \_____\  \ \_____\  \/\_____\
-  \/____/   \/_/   \/_____/   \/_____/   \/_____/   \/_____/   \/_____/
-
- ______     ______     ______     ______     ______   ______     ______
-/\  ___\   /\  ___\   /\  == \   /\  __ \   /\  == \ /\  ___\   /\  == \
-\ \___  \  \ \ \____  \ \  __<   \ \  __ \  \ \  _-/ \ \  __\   \ \  __<
- \/\_____\  \ \_____\  \ \_\ \_\  \ \_\ \_\  \ \_\    \ \_____\  \ \_\ \_\
-  \/_____/   \/_____/   \/_/ /_/   \/_/\/_/   \/_/     \/_____/   \/_/ /_/
-
-</pre>
+![Alt text](/screenshot.png?raw=true 'Discogs scrapper screenshot terminal')
 
 Recieve your discogs wantlist in your telegram app and enhanced it! You will recieve the new entries every
 hour (by default) and you can block sellers, no more sellers with abusive price or repited records, ban it!
