@@ -1,7 +1,9 @@
-![Alt text](/screenshot.png?raw=true 'Discogs scrapper screenshot terminal')
+![Alt text](/images/screenshot.png?raw=true 'Discogs scrapper screenshot terminal')
 
 Recieve your discogs wantlist in your telegram app and enhanced it! You will recieve the new entries every
 hour (by default) and you can block sellers, no more sellers with abusive price or repited records, ban it!
+
+![Alt text](/images/telegram.png?raw=true 'Discogs scrapper screenshot telegram')
 
 <hr>
 
