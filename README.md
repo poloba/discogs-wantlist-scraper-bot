@@ -87,6 +87,10 @@ items and uploading again every day) or have high prices.
 
 -   Recieve the entire list of banned sellers.
 
+### Webapp
+
+`cd web && yarn start`
+
 ## Important notes
 
 -   At this moment the app is only working at dev enviroment.

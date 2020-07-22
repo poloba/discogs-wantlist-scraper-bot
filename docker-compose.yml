@@ -15,7 +15,7 @@ services:
         volumes:
             - .:/app
         environment:
-            - DIRECTORY=server
+            - DIRECTORY=app
             - COMMAND=npm run watch:dev
         networks:
             - app-network
