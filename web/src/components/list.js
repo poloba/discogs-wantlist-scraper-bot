@@ -100,9 +100,8 @@ const Row = ({
     description,
     price,
     image,
-    urlCart,
-    urlRelease,
     urlDetails,
+    urlRelease,
     location,
     conditionMedia,
     conditionSleeve,
@@ -115,7 +114,7 @@ const Row = ({
     return (
         <li className={classes.row}>
             <a
-                href={baseUrl + urlCart}
+                href={baseUrl + urlDetails}
                 target="_blank"
                 title={`Buy ${artist}`}
                 className={classes.imageWrapper}
@@ -172,9 +171,8 @@ Row.propTypes = {
     description: t.string,
     price: t.string.isRequired,
     image: t.string.isRequired,
-    urlCart: t.string.isRequired,
-    urlRelease: t.string,
     urlDetails: t.string.isRequired,
+    urlRelease: t.string,
     location: t.string,
     conditionMedia: t.string,
     conditionSleeve: t.string,
@@ -191,14 +189,13 @@ const List = ({items}) => (
                 description,
                 price,
                 image,
-                urlCart,
-                urlRelease,
-                urlDetails,
+                url_details,
+                url_release,
+                url_seller,
                 location,
                 conditionMedia,
                 conditionSleeve,
                 seller,
-                sellerLink,
             } = item;
 
             return (
@@ -208,14 +205,13 @@ const List = ({items}) => (
                     description={description}
                     price={price}
                     image={image}
-                    urlCart={urlCart}
-                    urlRelease={urlRelease}
-                    urlDetails={urlDetails}
+                    urlDetails={url_details}
+                    urlRelease={url_release}
                     location={location}
                     conditionMedia={conditionMedia}
                     conditionSleeve={conditionSleeve}
                     seller={seller}
-                    sellerLink={sellerLink}
+                    sellerLink={url_seller}
                 />
             );
         })}
@@ -229,9 +225,8 @@ List.propTypes = {
             description: t.string,
             price: t.string.isRequired,
             image: t.string.isRequired,
-            urlCart: t.string.isRequired,
-            urlRelease: t.string,
             urlDetails: t.string.isRequired,
+            urlRelease: t.string,
             location: t.string,
             conditionMedia: t.string,
             conditionSleeve: t.string,

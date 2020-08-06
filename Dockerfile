@@ -12,10 +12,10 @@ RUN pip install scrapy-fake-useragent
 
 # Install node dependencies
 COPY package*.json ./
-RUN npm install
+RUN yarn install
 
 # Bundle app source
 COPY . /app
 
 EXPOSE 3333
-CMD ["npm", "run", "watch:dev"]
+CMD ["yarn", "watch:dev"]

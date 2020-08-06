@@ -12,11 +12,12 @@ const useFetch = (request, payload) => {
 
         (async () => {
             setLoading(true);
-            const response = await fetch(request, {...payload, signal: abortController.signal}).catch(
-                (err) => {
-                    err.code !== 20 && setError(err);
-                }
-            );
+            const response = await fetch(process.env.API_URL + request, {
+                ...payload,
+                signal: abortController.signal,
+            }).catch((err) => {
+                err.code !== 20 && setError(err);
+            });
 
             if (response && isMounted) {
                 if (response.status >= 400 && response.status < 600) {

@@ -13,24 +13,25 @@ Follow this instructions to install it:
 
 -   Install [Docker](https://docs.docker.com/)
 -   Install [Node](https://nodejs.org/en/download/)
+-   Install [Yarn](https://classic.yarnpkg.com/en/docs/install/)
+
 -   Get your [Telegram token](https://core.telegram.org/bots/api#authorizing-your-bot) for your bot, something
     like this: `123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11`
-    -   Ask to [Botfather](https://core.telegram.org/bots#6-botfather) to obtain it.
+    -   Ask to [Botfather](https://core.telegram.org/bots#6-botfather) to obtain the token.
 -   Get your [Telegram chat id](https://stackoverflow.com/questions/45414021/get-telegram-channel-group-id),
     where you recieve the messages with the scrapped data.
-    -   If you want more info about the bot integration check [Telebot](https://github.com/mullwar/telebot)
-        documentation.
+    -   If you want more information about the bot integration check
+        [Telebot](https://github.com/mullwar/telebot) documentation.
 
 ## Installation
 
-`npm run docker:start`
+`yarn docker:start`
 
 You will asked to enter these config parameters:
 
 -   Discogs username and password.
 -   Telegram token and chat id.
 -   Cron schedule. By default is set to `47 07-23,00-01 * * *`
-    -   Is active between 7:47 am to 01:47 am every hour.
     -   You can use [Crontab Guru](https://crontab.guru/) to make the schedule.
 -   This will create `config.json` file that will be used by scrapy to scrap your wantlist discogs account.
 
@@ -40,37 +41,37 @@ This is a quick reference to know the app uses.
 
 ### Docker
 
-`npm run docker:up`
+`yarn docker:up`
 
 Start app and db docker containers and attach to the app terminal container.
 
-`npm run docker:down`
+`yarn docker:down`
 
 Down app and db docker containers.
 
-`npm run docker:start`
+`yarn docker:start`
 
 Launch and attach to the app terminal container if it is already up.
 
-`npm run docker:build`
+`yarn docker:build`
 
 Build app and db docker containers.
 
-`npm run docker:app`
+`yarn docker:app`
 
 Get shell inside the app container.
 
-`npm run docker:db`
+`yarn docker:db`
 
 Get shell inside the db container.
 
 ### Dev utils
 
-`npm run prettier`
+`yarn prettier`
 
 Pretify the code.
 
-`npm run test`
+`yarn test`
 
 Run Jest test util.
 
@@ -89,7 +90,13 @@ items and uploading again every day) or have high prices.
 
 ### Webapp
 
+To start development mode
+
 `cd web && yarn start`
+
+To render bundle production
+
+`cd web && yarn build`
 
 ## Important notes
 

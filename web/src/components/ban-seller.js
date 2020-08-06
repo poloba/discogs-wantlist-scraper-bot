@@ -22,7 +22,7 @@ const BanSeller = ({seller}) => {
     const classes = useStyles();
     const [{data, loading, error}, executePut] = useAxios(
         {
-            url: 'http://localhost:3333/rest/counters/blacklistseller',
+            url: `${process.env.API_URL}/discogs/ban`,
             method: 'POST',
         },
         {manual: true}

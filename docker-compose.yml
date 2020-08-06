@@ -16,7 +16,7 @@ services:
             - .:/app
         environment:
             - DIRECTORY=app
-            - COMMAND=npm run watch:dev
+            - COMMAND=yarn watch:dev
         networks:
             - app-network
         depends_on:

@@ -5,9 +5,9 @@
     "repository": "git@github.com:poloba/discogs-wantlist-scraper-bot.git",
     "author": "Pol Escolar",
     "scripts": {
-        "start": "npm run prod",
+        "start": "yarn prod",
         "build": "npm-run-all clean transpile",
-        "server": "node ./dist-app/bin/www",
+        "app": "node ./dist-app/bin/www",
         "dev": "NODE_ENV=development npm-run-all build app",
         "prod": "NODE_ENV=production npm-run-all build app",
         "transpile": "babel ./app --out-dir dist-app",
@@ -15,7 +15,7 @@
         "watch:dev": "nodemon -I",
         "test": "jest",
         "prettier": "prettier --write '**/*.js' '**/*.json' '**/*.md'",
-        "docker:install": "npm install && docker-compose build && docker-compose up -d && docker attach app",
+        "docker:install": "yarn install && docker-compose build && docker-compose up -d && docker attach app",
         "docker:up": "docker-compose up -d && docker attach app",
         "docker:down": "docker-compose down",
         "docker:start": "docker attach app",
@@ -68,9 +68,9 @@
         }
     },
     "nodemonConfig": {
-        "exec": "npm run dev",
+        "exec": "yarn dev",
         "watch": [
-            "server/*",
+            "app/*",
             "public/*"
         ],
         "ignore": [

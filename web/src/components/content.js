@@ -1,5 +1,4 @@
 import React from 'react';
-import t from 'prop-types';
 import 'regenerator-runtime/runtime.js';
 import {createUseStyles} from 'react-jss';
 import List from './list';
@@ -11,9 +10,9 @@ const useStyles = createUseStyles({
     },
 });
 
-const Content = ({itemsLength}) => {
+const Content = () => {
     const classes = useStyles();
-    const [data, loading, error] = useFetch(`http://localhost:3333/rest/latest/discogs/${itemsLength}`);
+    const [data, loading, error] = useFetch('/discogs/entries/all', 'Access-Control-Allow-Origin: *');
 
     if (error) {
         return 'Error';
@@ -28,10 +27,6 @@ const Content = ({itemsLength}) => {
             <List items={data} />
         </div>
     );
-};
-
-Content.propTypes = {
-    itemsLength: t.number.isRequired,
 };
 
 export default Content;
