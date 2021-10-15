@@ -25,7 +25,7 @@ Follow this instructions to install it:
 
 ## Installation
 
-`yarn docker:start`
+`yarn docker:install`
 
 You will asked to enter these config parameters:
 
