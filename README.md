@@ -88,7 +88,7 @@ items and uploading again every day) or have high prices.
 
 -   Recieve the entire list of banned sellers.
 
-### Webapp
+## Webapp
 
 To start development mode
 
