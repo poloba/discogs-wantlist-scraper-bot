@@ -37,7 +37,7 @@
         "configstore": "^5.0.1",
         "cookie-parser": "~1.4.4",
         "debug": "~2.6.9",
-        "express": "~4.16.1",
+        "express": "~4.17.3",
         "figlet": "^1.4.0",
         "http-errors": "~1.6.3",
         "inquirer": "^7.1.0",
